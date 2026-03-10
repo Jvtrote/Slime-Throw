@@ -1,4 +1,4 @@
-\# Slime Throw
+# Slime Throw
 
 
 
