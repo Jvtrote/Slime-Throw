@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f72a5edc18a244542825e1aa71d63c30
+guid: c46129359f5c76e49bbf8a8973612204
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3192971955291948156
-    second: montanhas 2_0
+      213: 5469801587152706969
+    second: "ch\xE3o terra ST_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,7 +84,46 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -100,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: montanhas 2_0
+      name: "ch\xE3o terra ST_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 338
-        height: 338
+        width: 360
+        height: 135
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 48bf90b7ce840b3d0800000000000000
-      internalID: -3192971955291948156
+      spriteID: 99dda123093a8eb40800000000000000
+      internalID: 5469801587152706969
       vertices: []
       indices: 
       edges: []
@@ -135,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      montanhas 2_0: -3192971955291948156
+      "ch\xE3o terra ST_0": 5469801587152706969
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
