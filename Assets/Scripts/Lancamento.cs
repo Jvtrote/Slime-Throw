@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // Adicione isso no topo!
 
 public class SlimeLauncher : MonoBehaviour
 {
@@ -8,13 +7,24 @@ public class SlimeLauncher : MonoBehaviour
     private Rigidbody2D rb;
     private LineRenderer lr;
 
-    public float power = 15f;
+    [Header("Configurações de Força")]
+    public float power = 10f;
     public float maxDrag = 3f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        lr = GetComponent<LineRenderer>();
+        lr = gameObject.AddComponent<LineRenderer>(); // Cria a linha visualmente
+
+        // Configuração básica da linha (visual do estilingue)
+        lr.positionCount = 2;
+        lr.startWidth = 0.1f;
+        lr.endWidth = 0.05f;
+        lr.material = new Material(Shader.Find("Sprites/Default"));
+        lr.startColor = Color.white;
+        lr.enabled = false;
+
+        // Começa parado no ar (opcional)
         rb.gravityScale = 0;
     }
 
@@ -22,11 +32,10 @@ public class SlimeLauncher : MonoBehaviour
     {
         if (isDragging)
         {
-            // Sistema Novo usa Mouse.current ou Touchscreen.current
-            Vector2 mousePos = Mouse.current.position.ReadValue();
-            Vector3 currentPos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector3 currentPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             currentPos.z = 0;
 
+            // Limita a distância máxima do arrasto
             float distance = Vector3.Distance(startPos, currentPos);
             if (distance > maxDrag)
             {
@@ -34,11 +43,33 @@ public class SlimeLauncher : MonoBehaviour
                 currentPos = startPos + direction * maxDrag;
             }
 
+            // Atualiza a linha visual
             lr.SetPosition(0, startPos);
             lr.SetPosition(1, currentPos);
         }
     }
 
-    // No sistema novo, OnMouseDown as vezes não funciona bem se não houver um PhysicsRaycaster na câmera.
-    // Mas se você mudar a configuração para "Both", o script anterior volta a funcionar perfeito!
+    void OnMouseDown()
+    {
+        isDragging = true;
+        startPos = transform.position;
+        lr.enabled = true;
+    }
+
+    void OnMouseUp()
+    {
+        isDragging = false;
+        lr.enabled = false;
+
+        Vector3 endPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        endPos.z = 0;
+
+        // Calcula a força baseada na distância do arrasto
+        Vector2 force = startPos - endPos;
+        float clampedForce = Mathf.Clamp(force.magnitude, 0, maxDrag);
+
+        // Ativa a gravidade e lança!
+        rb.gravityScale = 1;
+        rb.AddForce(force.normalized * clampedForce * power, ForceMode2D.Impulse);
+    }
 }
