@@ -1,0 +1,5 @@
+# Slime throw Mechanics
+
+Um jogo onde o objetivo é ir o mais longe que puder com a slime. Usando os itens para ir mais longe, e evitando acertar obstáculos que diminuem sua velocidade.
+
+Apenas arrastando o dedo para o lado para esticar o slime e lançar para a gloria. 
