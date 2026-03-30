@@ -617,7 +617,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.17610091}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -627,7 +627,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.6, y: 1.35}
+  m_Size: {x: 3.6, y: 0.9977981}
   m_EdgeRadius: 0
 --- !u!1 &625850971
 GameObject:
@@ -963,6 +963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1647831289}
   - component: {fileID: 1647831288}
+  - component: {fileID: 1647831290}
   m_Layer: 0
   m_Name: nuvem
   m_TagString: Untagged
@@ -1044,6 +1045,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1647831290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647831287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f055b9b017d00439d262a9804e6d04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InfiniteFloor
+  cameraTransform: {fileID: 625850974}
+  floorTiles:
+  - {fileID: 1647831287}
+  tileSize: 1
 --- !u!1 &1708288448
 GameObject:
   m_ObjectHideFlags: 0
