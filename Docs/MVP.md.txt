@@ -1,0 +1,3 @@
+# Slime Throw - MVP
+
+As futuras expansões planejadas para o jogo são incluir mais áreas que vão aparecendo após o campo verde, como um deserto, um oceano, uma parte polar, etc. Além de novos itens e também uma customização para o slime. Podendo alterar sua cor e colocar acessórios.  
