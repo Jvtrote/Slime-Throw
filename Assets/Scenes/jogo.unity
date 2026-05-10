@@ -783,7 +783,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 625850974}
   floorTiles:
   - {fileID: 374842230}
-  tileSize: 1.2
+  tileSize: 2.4
 --- !u!212 &374842232
 SpriteRenderer:
   serializedVersion: 2
