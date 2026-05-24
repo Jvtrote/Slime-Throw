@@ -1,28 +1,31 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro; // Essencial para o texto do recorde
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Configurações do Jogo")]
     public GameObject painelGameOver;
+    public GameObject painelPause; // NOVO: Arraste o Painel de Pause aqui
     public Rigidbody2D slimeRb;
 
     [Header("Configurações de Distância/Recorde")]
-    public TextMeshProUGUI textoRecorde; // Arraste o seu Texto da UI aqui
-    public TextMeshProUGUI textoDistanciaAtual; // OPCIONAL: Se quiser mostrar a distância subindo em tempo real
+    public TextMeshProUGUI textoRecorde;
+    public TextMeshProUGUI textoDistanciaAtual;
 
     private bool jogoFinalizado = false;
+    private bool jogoPausado = false; // NOVO: Controla o estado do pause
     private float recordeMaximo;
     private Vector2 posicaoInicial;
     private bool slimeLancado = false;
 
     void Start()
     {
-        // Carrega o recorde de distância salvo (usamos GetFloat para números quebrados)
+        // Garante que o tempo do jogo está normal ao iniciar/reiniciar
+        Time.timeScale = 1f;
+
         recordeMaximo = PlayerPrefs.GetFloat("RecordeDistancia", 0f);
 
-        // Guarda a posição de onde o slime começou a partida
         if (slimeRb != null)
         {
             posicaoInicial = slimeRb.position;
@@ -33,9 +36,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (slimeRb == null || jogoFinalizado) return;
+        // NOVO: Atalho no teclado/celular se quiser pausar apertando Esc ou voltando
+        if (Input.GetKeyDown(KeyCode.Escape) && !jogoFinalizado)
+        {
+            if (jogoPausado) AlternarPause(false);
+            else AlternarPause(true);
+        }
 
-        // Detecta se o jogador lançou o slime (quando a gravidade ativa ou ele ganha velocidade)
+        if (slimeRb == null || jogoFinalizado || jogoPausado) return;
+
         if (!slimeLancado && (slimeRb.gravityScale > 0 || slimeRb.linearVelocity.magnitude > 0.5f))
         {
             slimeLancado = true;
@@ -43,16 +52,13 @@ public class GameManager : MonoBehaviour
 
         if (slimeLancado)
         {
-            // Calcula a distância atual entre o ponto inicial e onde o slime está agora
             float distanciaAtual = Vector2.Distance(posicaoInicial, slimeRb.position);
 
-            // Se você colocou o texto da distância atual, ele atualiza em tempo real (com 1 casa decimal)
             if (textoDistanciaAtual != null)
             {
                 textoDistanciaAtual.text = "Distância: " + distanciaAtual.ToString("F1") + "m";
             }
 
-            // Verifica se o Slime parou totalmente após ser lançado
             if (slimeRb.linearVelocity.magnitude < 0.1f && slimeRb.gravityScale > 0)
             {
                 FinalizarPartida(distanciaAtual);
@@ -60,11 +66,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // NOVO: FUNÇÃO PARA O BOTÃO DE PAUSE E RETORNAR
+    public void BotaoPause(bool pausar)
+    {
+        if (jogoFinalizado) return; // Não deixa pausar se já deu Game Over
+        AlternarPause(pausar);
+    }
+
+    void AlternarPause(bool pausar)
+    {
+        jogoPausado = pausar;
+
+        if (painelPause != null)
+        {
+            painelPause.SetActive(pausar); // Liga ou desliga o menu visual
+        }
+
+        // Se pausar, o tempo vira 0 (congela tudo). Se despausar, volta para 1 (normal).
+        Time.timeScale = pausar ? 0f : 1f;
+    }
+
     void FinalizarPartida(float distanciaFinal)
     {
         jogoFinalizado = true;
 
-        // Se a distância dessa jogada for maior que o recorde antigo, salva o novo
         if (distanciaFinal > recordeMaximo)
         {
             recordeMaximo = distanciaFinal;
@@ -80,16 +105,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void UpdateTextoRecorde() // Apenas para compatibilidade caso mude o nome
-    {
-        AtualizarTextoRecorde();
-    }
-
     void AtualizarTextoRecorde()
     {
         if (textoRecorde != null)
         {
-            // Mostra o recorde com "m" de metros e apenas uma casa decimal (ex: Recorde: 25.4m)
             textoRecorde.text = "Maior Distância: " + recordeMaximo.ToString("F1") + "m";
         }
     }
@@ -97,5 +116,11 @@ public class GameManager : MonoBehaviour
     public void ReiniciarODogo()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // NOVO: FUNÇÃO PARA O BOTÃO DE SAIR PARA O MENU
+    public void VoltarParaOMenu()
+    {
+        SceneManager.LoadScene("menu"); // Coloque o nome exato da sua cena de menu
     }
 }
