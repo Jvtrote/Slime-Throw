@@ -2828,7 +2828,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 625850974}
   floorTiles:
   - {fileID: 1495118552}
-  tileSize: 0.2
+  tileSize: 1
 --- !u!1 &1555006428
 GameObject:
   m_ObjectHideFlags: 0
